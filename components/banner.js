@@ -1,18 +1,20 @@
-import styles from "../styles/banner.module.css";
+import styles from "./banner.module.css";
 
-const banner = (props) => {
+const Banner = (props) => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>
                 <span className={styles.title1}>Coffee</span>
-                <span className={styles.title2}>Connoiseur</span>
+                <span className={styles.title2}>Connoisseur</span>
             </h1>
-            <p className={styles.subTitle}>
-                Discover your local coffee stores!
-            </p>
-            <button className={styles.button} onClick={props.handleClick}>{props.btntext}</button>
+            <p className={styles.subTitle}>Welcome to the CCD!</p>
+            <div className={styles.buttonWrapper}>
+                <button className={styles.button} onClick={props.handleClick}>
+                    {props.btntext}
+                </button>
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default banner
+export default Banner;
