@@ -17,13 +17,18 @@ export async function getStaticProps(staticprops) {
 export async function getStaticPaths() {
     return {
         paths: [{ params: { slug: '0' } }, { params: { slug: '1' } }],
-        fallback: false, // can also be true or 'blocking'
+        fallback: true, // can also be true or 'blocking'
     }
 }
 
 const CoffeeStore = (props) => {
 
     const router = useRouter();
+    if (router.isFallback) {
+        return (
+            <div>Loading...</div>
+        )
+    }
     console.log("props", props);
     return (
         <div>
