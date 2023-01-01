@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 import Banner from "../components/banner";
+import Card from "../components/card";
 
 const handleClick = () => {
   console.log("what is up bro");
@@ -19,10 +20,19 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Banner btntext="view nearby stores" handleClick={handleClick} />
+        <Banner
+          btntext="view nearby stores"
+          handleClick={handleClick} />
         <div className={styles.heroImage}>
-          <Image src="/static/hero-image.png" width={700} height={400} />
+          <Image
+            src="/static/hero-image.png"
+            width={700}
+            height={400} />
         </div>
+        <Card
+          imgURL="/static/hero-image.png"
+          name="Card component"
+          href="/coffee-store/darkhouse-coffee" />
       </main>
     </div>
   )
