@@ -1,35 +1,42 @@
 import { useState } from "react";
 
-const trackLocation = () => {
-
-    const [locationErrorMessage, setLocationErrorMessage] = useState("");
-    const [latLong, setLatLong] = useState();
+const useTrackLocation = () => {
+    const [locationErrorMsg, setLocationErrorMsg] = useState("");
+    const [latLong, setLatLong] = useState("");
+    const [isFindingLocation, setIsFindingLocation] = useState(false);
 
     const success = (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+
         setLatLong(`${latitude},${longitude}`);
-        setLocationErrorMessage("");
-    }
+        setLocationErrorMsg("");
+        setIsFindingLocation(false);
+    };
 
     const error = () => {
-        setLocationErrorMessage("Unable to retrieve your location");
-    }
+        setIsFindingLocation(false);
+        setLocationErrorMsg("Unable to retrieve your location");
+    };
 
     const handleTrackLocation = () => {
+        setIsFindingLocation(true);
+
         if (!navigator.geolocation) {
-            setLocationErrorMessage('Geolocation is not supported by your browser');
+            setLocationErrorMsg("Geolocation is not supported by your browser");
+            setIsFindingLocation(false);
         } else {
-            // status.textContent = 'Locating…';
+            // status.textContent = "Locating…";
             navigator.geolocation.getCurrentPosition(success, error);
         }
-    }
+    };
 
-    return (
+    return {
         latLong,
-        locationErrorMessage,
-        handleTrackLocation
-    )
-}
+        handleTrackLocation,
+        locationErrorMsg,
+        isFindingLocation,
+    };
+};
 
-export default trackLocation
+export default useTrackLocation;
