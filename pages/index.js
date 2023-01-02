@@ -18,6 +18,7 @@ export async function getStaticProps(context) {
 export default function Home(props) {
   // console.log(props);
   const handleOnBannerBtnClick = () => {
+    // handleTrackLocation();
     console.log("whats up bro");
   };
   return (
