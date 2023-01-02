@@ -6,6 +6,19 @@ import Image from "next/image";
 import cls from "classnames";
 import styles from "../../styles/coffee.module.css";
 
+
+// const options = {
+//     method: 'GET',
+//     headers: {
+//         accept: 'application/json',
+//         Authorization: 'fsq3kdGD9xgJITIEmEyBcs7laFbChZWM9lya4JJC+9IkA30='
+//     }
+// };
+// fetch('https://api.foursquare.com/v3/places/search', options)
+//     .then(response => response.json())
+//     .then(response => console.log(response))
+//     .catch(err => console.error(err));
+
 export async function getStaticProps(staticprops) {
     console.log("static", staticprops);
     const params = staticprops.params;
