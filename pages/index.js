@@ -6,7 +6,7 @@ import Banner from "../components/banner";
 import Card from "../components/card";
 import { fetchCoffeeStores } from "../lib/coffee-stores";
 import useTrackLocation from "../hooks/trackLocation";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 // import coffeeData from "../data/coffee-stores.json";
 
 export async function getStaticProps(context) {
@@ -22,16 +22,21 @@ export default function Home(props) {
   const { handleTrackLocation, latLong, locationErrorMsg } = useTrackLocation();
   console.log({ latLong, locationErrorMsg });
 
+  const [coffeeStores, setCoffeeStores] = useState("");
+  const [coffeeStoresError, setCoffeeStoresError] = useState(null);
+
   useEffect(() => {
     async function setCoffeeStoresByLocation() {
       if (latLong) {
         try {
           const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 6);
+          setCoffeeStores(fetchedCoffeeStores)
           console.log({ fetchedCoffeeStores });
           //set coffee stores
         } catch (error) {
           //set error
           console.log("Error", { error });
+          setCoffeeStoresError(error.message)
         }
       }
     }
@@ -43,6 +48,7 @@ export default function Home(props) {
     console.log("whats up bro");
   };
   return (
+
     <div className={styles.container}>
       <Head>
         <title>Coffee shop</title>
@@ -58,6 +64,25 @@ export default function Home(props) {
         <div className={styles.heroImage}>
           <Image src="/static/hero-image.png" width={700} height={400} />
         </div>
+
+        {coffeeStores.length > 0 && (
+          <>
+            <h2 className={styles.heading2}>Nearby stores</h2>
+            <div className={styles.cardLayout}>
+              {coffeeStores.map((coffeeStore) => {
+                return (
+                  <Card
+                    key={coffeeStore.fsq_id}
+                    name={coffeeStore.name}
+                    imgUrl={coffeeStore.imgUrl || "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"}
+                    href={`/coffee-store/${coffeeStore.fsq_id}`}
+                    className={styles.card}
+                  />
+                );
+              })}
+            </div>
+          </>
+        )}
 
         {props.coffee.length > 0 && (
           <>
