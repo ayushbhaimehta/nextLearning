@@ -7,7 +7,7 @@ import cls from "classnames";
 import styles from "../../styles/coffee.module.css";
 import { fetchCoffeeStores } from "../../lib/coffee-stores";
 import { useContext, useState, useEffect } from "react";
-import { StoreContext } from "../_app";
+import { StoreContext } from "../../store/index";
 import { isEmpty } from "../../utils";
 
 export async function getStaticProps(staticProps) {
