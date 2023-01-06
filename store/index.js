@@ -33,4 +33,5 @@ const StoreProvider = ({ children }) => {
         </StoreContext.Provider>
     );
 };
-export default StoreProvider
+
+export default StoreProvider;

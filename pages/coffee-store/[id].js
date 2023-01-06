@@ -40,24 +40,22 @@ export async function getStaticPaths() {
     };
 }
 
-const CoffeeStore = (initialprops) => {
+const CoffeeStore = (initialProps) => {
     const router = useRouter();
     if (router.isFallback) {
         return <div>Loading...</div>;
     }
-
     const id = router.query.id;
-    const [coffeeStore, setCoffeeStore] = useState(initialprops.coffeeStore);
 
+    const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore);
 
     const {
-        state: {
-            coffeeStores
-        }
+        state: { coffeeStores },
     } = useContext(StoreContext);
 
+
     useEffect(() => {
-        if (isEmpty(initialprops.coffeeStore)) {
+        if (isEmpty(initialProps.coffeeStore)) {
             if (coffeeStores.length > 0) {
                 const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
                     return coffeeStore.fsq_id.toString() === id; //dynamic id
@@ -66,7 +64,6 @@ const CoffeeStore = (initialprops) => {
             }
         }
     }, [id]);
-
     const { name, location, imgUrl } = coffeeStore;
     // const address = location.address;
     // const neighbourhood = location.postcode;
